@@ -5,7 +5,7 @@ import Header from './components/Header'
 function App() {
 
   return (
-    <div className='text-xl font-bold p-5'>
+    <div className=''>
       <Header />
       <Body />
     </div>
