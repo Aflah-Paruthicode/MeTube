@@ -1,7 +1,12 @@
 import React from "react";
 import { SideBarOptions } from "../utils/constants";
+import { useSelector } from "react-redux";
+import store from "../utils/store";
 
 const Sidebar = () => {
+  const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
+  if (!isMenuOpen) return;
+
   return (
     <div className="w-[14rem] overflow-y-scroll">
       <div className="flex gap-6 mx-5 py-[8px] px-2 hover:bg-[#dcdcdc] rounded-lg">
@@ -31,7 +36,9 @@ const Sidebar = () => {
 
       {SideBarOptions.map((option) => (
         <div>
-          {option.name && <p className="ml-6 text-[18px] font-semibold py-3">{option.name}</p>}
+          {option.name && (
+            <p className="ml-6 text-[18px] font-semibold py-3">{option.name}</p>
+          )}
           {option.options.map((button) => (
             <div className="flex gap-6 mx-5 py-[8px] px-2 hover:bg-[#dcdcdc] rounded-lg">
               <svg
@@ -46,7 +53,7 @@ const Sidebar = () => {
               <h1>{button.name}</h1>
             </div>
           ))}
-        <hr className="text-[#dbdada] my-1" />
+          <hr className="text-[#dbdada] my-1" />
         </div>
       ))}
     </div>
