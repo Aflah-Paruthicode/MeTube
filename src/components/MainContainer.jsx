@@ -5,7 +5,7 @@ import ButtonList from './ButtonList'
 const MainContainer = () => {
   return (
     <div className='px-8'> 
-        <ButtonList /> 
+        <ButtonList  /> 
         <VideoContainer /> 
     </div>
   )
