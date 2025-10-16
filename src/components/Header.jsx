@@ -9,8 +9,8 @@ const Header = () => {
   };
 
   return (
-    <div className="grid grid-cols-12 w-full shadow-lg h-[70px] px-5">
-      <div className="col-span-1 grid grid-cols-10">
+    <div className="grid grid-cols-12 w-full h-[70px] px-5 fixed top-0 bg-white z-[999999999]"> 
+      <div className="col-span-1 grid grid-cols-10"> 
         <svg
           onClick={togggleMenuHandler}
           className="col-span-2 m-auto cursor-pointer"

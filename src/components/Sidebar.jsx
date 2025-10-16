@@ -8,7 +8,7 @@ const Sidebar = () => {
   if (!isMenuOpen) return;
 
   return (
-    <div className="w-[271rem] overflow-y-scroll h-screen">
+    <div className="w-[14rem] overflow-y-scroll h-screen fixed z-0 mt-[70px] pb-[70px]">
       <div className="flex gap-6 mx-5 py-[8px] px-2 hover:bg-[#dcdcdc] rounded-lg">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +40,7 @@ const Sidebar = () => {
             <p className="ml-6 text-[18px] font-semibold py-3">{option.name}</p>
           )}
           {option.options.map((button,indx) => (
-            <div key={indx} className="flex gap-6 mx-5 py-[8px] px-2 hover:bg-[#dcdcdc] rounded-lg">
+            <div key={indx} className="flex gap-6 mx-5 py-[8px] px-2 hover:bg-[#dcdcdc] rounded-lg cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="24px"

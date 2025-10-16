@@ -1,27 +1,14 @@
 import React from 'react'
 import Button from './Button'
 
-const ButtonList = () => {
+const ButtonList = () => { 
+
+  const buttonNames = ['All','Mixes','Music','Podcasts','Quiffs','Hair Care',
+    'Self-Confidence','Wealth','Reverberation','Skills','Funk','Tamil Cinema','Dramedy','Live','Gadgets','House Music','Motivation','Comedy']
+
   return (
-    <div className='flex overflow-x-scroll w-full overflow-hidden'> 
-      <Button name={'All'} /> 
-      <Button name={'Mixes'} /> 
-      <Button name={'Music'} /> 
-      <Button name={'Podcasts'} /> 
-      <Button name={'Quiffs'} /> 
-      <Button name={'Hair Care'} /> 
-      <Button name={'Self-Confidence'} /> 
-      <Button name={'Wealth'} /> 
-      <Button name={'Reverberation'} /> 
-      <Button name={'Skills'} /> 
-      <Button name={'Funk'} /> 
-      <Button name={'Tamil Cinema'} /> 
-      <Button name={'Dramedy'} /> 
-      <Button name={'Live'} /> 
-      <Button name={'Gadgets'} /> 
-      <Button name={'House Music'} /> 
-      <Button name={'Motivation'} /> 
-      <Button name={'Comedy'} /> 
+    <div className='flex overflow-x-scroll w-full overflow-hidden fixed bg-white z-50'>  
+    {buttonNames.map((name,ind) => <Button key={ind} name={name} /> )}
     </div> 
   )
 }
