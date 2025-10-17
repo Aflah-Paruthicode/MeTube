@@ -2,14 +2,15 @@ import React from "react";
 import { SideBarOptions } from "../utils/constants";
 import { useSelector } from "react-redux";
 import store from "../utils/store";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
   if (!isMenuOpen) return;
 
   return (
-    <div className="w-[14rem] overflow-y-scroll h-screen fixed z-0 mt-[70px] pb-[70px]">
-      <div className="flex gap-6 mx-5 py-[8px] px-2 hover:bg-[#dcdcdc] rounded-lg">
+    <div className="w-[14rem] overflow-y-scroll h-screen fixed z-20 mt-[70px] pb-[70px] bg-white">
+      <Link to={'/'} className="flex gap-6 mx-5 py-[8px] px-2 hover:bg-[#dcdcdc] rounded-lg">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="24px"
@@ -20,7 +21,7 @@ const Sidebar = () => {
           <path d="M240-200h133.85v-237.69h212.3V-200H720v-360L480-740.77 240-560v360Zm-60 60v-450l300-225.77L780-590v450H526.15v-237.69h-92.3V-140H180Zm300-330.38Z" />
         </svg>
         <h1>Home</h1>
-      </div>
+      </Link>
       <div className="flex gap-6 mx-5 py-[8px] px-2 hover:bg-[#dcdcdc] rounded-lg">
         <svg
           xmlns="http://www.w3.org/2000/svg"
