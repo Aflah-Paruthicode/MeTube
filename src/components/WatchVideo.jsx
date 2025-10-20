@@ -12,10 +12,10 @@ const WatchVideo = () => {
   }, []);
 
   return (
-    <div className="mt-[80px] px-20 z-10"> 
+    <div className="mt-[80px] px-12 z-10"> 
       <iframe className="rounded-xl"
-        width="1300"
-        height="700"
+        width="1380"
+        height="730"
         src={`https://www.youtube.com/embed/${searchparams.get('v')}`}
         title="YouTube video player"
         frameBorder="0"
