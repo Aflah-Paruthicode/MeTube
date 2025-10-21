@@ -200,3 +200,5 @@ export const dummyComments = [
     ],
   },
 ];
+
+export const AdsLogo = 'https://www.almircollections.com/logo.png'
