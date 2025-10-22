@@ -129,9 +129,11 @@ export const SideBarOptions = [
   },
 ];
 
-export const YT_VIDEOS_API =
-  "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=50&chart=mostPopular&regionCode=IN&key=" +
+export const YT_VIDEOS_API = (pageId ='') => {
+
+  return "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=50&chart=mostPopular&regionCode=IN&pageToken="+pageId+"&key=" +
   import.meta.env.VITE_GOOGle_API_KEY;
+}
 
 
 export const SEARCH_API =
@@ -202,3 +204,5 @@ export const dummyComments = [
 ];
 
 export const AdsLogo = 'https://www.almircollections.com/logo.png'
+
+export const Offset_Live_Chat = 50
