@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { closeMenu } from "../utils/appSlice";
 import { useSearchParams } from "react-router-dom";
 import CommentsContainer from "./CommentsContainer";
-import { AdsLogo } from "../utils/constants";
 import LiveChat from "./LiveChat";
 
 const WatchVideo = () => {

@@ -69,11 +69,13 @@ const LiveChat = () => {
       <form
         onClick={(e) => {
           e.preventDefault();
-          dispatch(addMessage({
-            name : 'User',
-            message : chatMessage.current.value,
-          }))
-          chatMessage.current.value = ''
+          if(chatMessage.current.value.trim() !== '') { 
+            dispatch(addMessage({
+              name : 'User',
+              message : chatMessage.current.value,
+            }))
+            chatMessage.current.value = ''
+          }
         }}
         className="flex px-6 justify-between bg-white py-3 rounded-b-2xl border border-gray-200"
       >

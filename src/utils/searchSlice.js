@@ -9,6 +9,6 @@ const searchSlice = createSlice({
     },
   },
 });
-
+ 
 export const { cacheResults } = searchSlice.actions;
 export default searchSlice.reducer;

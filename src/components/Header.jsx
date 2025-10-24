@@ -37,7 +37,7 @@ const Header = () => {
   };
 
   return (
-    <div className="grid grid-cols-12 w-full h-[70px] px-5 fixed top-0 bg-white z-[999999999]">
+    <div className="grid grid-cols-12 w-full h-[70px] px-7 fixed top-0 bg-white z-[999999999]">
       <div className="col-span-1 grid grid-cols-10">
         <svg
           onClick={togggleMenuHandler}
@@ -54,9 +54,10 @@ const Header = () => {
           <img src="/logo.png" alt="" />
         </div>
       </div>
-      <div className="col-span-10 m-auto font-normal ">
-        <input
-          className="border w-[500px] px-5 py-[3px] rounded-l-full border-r-0 outline-blue-400 outline-1"
+      <div className="col-span-9 m-auto font-normal flex items-center gap-3">
+        <div>
+          <input
+          className="border-gray-300 border border-[0.5px] py-[6px] w-[500px] px-5  rounded-l-full border-r-0 outline-gray-300 outline-1"
           type="search"
           placeholder="search..."
           onChange={(e) => {
@@ -83,10 +84,11 @@ const Header = () => {
           )}
           </ul>
         </div>}
-        <button className="border px-6 rounded-r-full py-[3px] my-auto">
+        <button className="px-6 rounded-r-full my-auto border-gray-300 bg-gray-200 border border-[0.5px] py-[7px]">
           Search
         </button>
-        <button className="border rounded-full p-[3px] mx-1">
+        </div>
+        <button className="rounded-full mx-1  bg-gray-200 p-[6px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="24px"
@@ -98,10 +100,10 @@ const Header = () => {
           </svg>
         </button>
       </div>
-      <div className="col-span-1 grid grid-cols-10 m-auto">
-        <p className="col-span-4 m-auto">Create</p>
+      <div className=" col-span-2 m-auto flex gap-3 justify-end w-full">
+        <p className="col-span-4 my-auto bg-gray-200 px-5 py-2 rounded-full">Create</p>
         <svg
-          className="col-span-3 m-auto"
+          className=" my-auto"
           xmlns="http://www.w3.org/2000/svg"
           height="24px"
           viewBox="0 -960 960 960"
@@ -111,7 +113,7 @@ const Header = () => {
           <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z" />
         </svg>
         <img
-          className="col-span-3 w-10"
+          className=" w-10"
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtRs_rWILOMx5-v3aXwJu7LWUhnPceiKvvDg&s"
           alt=""
         />
