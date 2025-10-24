@@ -101,7 +101,7 @@ const Header = () => {
         </button>
       </div>
       <div className=" col-span-2 m-auto flex gap-3 justify-end w-full">
-        <p className="col-span-4 my-auto bg-gray-200 px-5 py-2 rounded-full">Create</p>
+        <p className="col-span-4 my-auto bg-gray-200 px-5 py-1 rounded-full flex font-semibold"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00000"><path d="M480-120q-17 0-28.5-11.5T440-160v-280H160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520h280v-280q0-17 11.5-28.5T480-840q17 0 28.5 11.5T520-800v280h280q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440H520v280q0 17-11.5 28.5T480-120Z"/></svg> Create</p>
         <svg
           className=" my-auto"
           xmlns="http://www.w3.org/2000/svg"

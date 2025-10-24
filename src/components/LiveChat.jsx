@@ -11,8 +11,6 @@ const LiveChat = () => {
 
   useEffect(() => {
     const i = setInterval(() => {
-      console.log("Api Polling");
-
       dispatch(
         addMessage({
           name: generateRandomNames(),
@@ -61,7 +59,7 @@ const LiveChat = () => {
           </svg>
         </p>
       </div>
-      <div className=" overflow-y-scroll flex flex-col-reverse h-[630px] w-full">
+      <div className=" overflow-y-scroll flex flex-col-reverse h-[610px] w-full">
         {chatMessages.map((comment) => (
           <ChatMessage name={comment.name} message={comment.message} />
         ))}
