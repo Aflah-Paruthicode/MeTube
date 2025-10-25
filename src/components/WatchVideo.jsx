@@ -7,9 +7,12 @@ import LiveChat from "./LiveChat";
 import { ChannelDetails } from "./ChannelDetails";
 import { AdsLogo } from "../utils/constants";
 
+
 const WatchVideo = () => {
   const [searchparams] = useSearchParams();
-  const videoDetails = useSelector((store) => store.videos.videos.find(item => item.id == searchparams.get("v")))
+  const allVideos = useSelector((store) => store.videos.videos)
+  console.log('all : ',allVideos)
+  const videoDetails = allVideos.find(item => item.id == searchparams.get("v"))
   console.log('video here : ',videoDetails)
   const dispatch = useDispatch();
   useEffect(() => {
@@ -54,7 +57,15 @@ const WatchVideo = () => {
           </div>
         </div>
       </div>
+      <div className="flex w-full justify-between">
       <CommentsContainer />
+      {
+        allVideos.map((video) => {
+
+          <VideoCard key={video.id} info={video} />
+        })
+      }
+      </div>
     </div>
   );
 };

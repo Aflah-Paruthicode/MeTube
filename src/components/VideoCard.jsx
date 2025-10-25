@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { formatViews } from "../utils/formateCount";
 
-const VideoCard = ({ info }) => {
+ const VideoCard = ({ info }) => {
   if (!info) return;
   const { snippet, statistics } = info;
   const { channelTitle, title, thumbnails } = snippet;

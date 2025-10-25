@@ -60,8 +60,8 @@ const LiveChat = () => {
         </p>
       </div>
       <div className=" overflow-y-scroll flex flex-col-reverse h-[610px] w-full">
-        {chatMessages.map((comment) => (
-          <ChatMessage name={comment.name} message={comment.message} />
+        {chatMessages.map((comment,ind) => (
+          <ChatMessage key={ind} name={comment.name} message={comment.message} />
         ))}
       </div>
       <form
