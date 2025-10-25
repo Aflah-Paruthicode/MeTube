@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Comment from "./Comment";
 
-const CommentsList = ({ data }) => {
-  return data.map((singleData, ind) => 
+const CommentsList = ({ data,isReply=false }) => {
+  const [isOpenComment,setIsOpenComment] = useState(false)
+  return data.map((comment, ind) => 
   <div key={ind}  >
-    <Comment data={singleData} />
-    <div className="pl-5 border-l border-l-black ml-5">
-        <CommentsList data={singleData.replies} />
-    </div>
+    <Comment data={comment?.snippet} isReply={isReply} replyCount={comment?.replies?.comments?.length} toggleReplys={setIsOpenComment} replysToggleValue={isOpenComment} />
+    {comment?.replies?.comments?.length > 0 && isOpenComment && (
+    <div className="pl-5 ml-5">
+        <CommentsList data={comment?.replies?.comments} isReply={true} />
+    </div> 
+    )}
     </div>);
 };
 

@@ -7,19 +7,28 @@ import LiveChat from "./LiveChat";
 import { ChannelDetails } from "./ChannelDetails";
 import { AdsLogo } from "../utils/constants";
 import VideoCard from "./VideoCard";
+import { addComments } from "../utils/commentsSlice";
 
 const WatchVideo = () => {
   const [searchparams] = useSearchParams();
   const allVideos = useSelector((store) => store.videos.videos);
+  const id = searchparams.get("v")
   console.log("all : ", allVideos);
   const videoDetails = allVideos.find(
-    (item) => item.id == searchparams.get("v")
+    (item) => item.id == id
   );
-  console.log("video here : ", videoDetails);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(closeMenu());
-  }, []);
+    getComments()
+  }, [id]);
+console.log('hahaha its working dude')
+  const getComments = async () => {
+    const data = await fetch('https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId='+searchparams.get("v")+'&maxResults=50&order=time&key='+import.meta.env.VITE_GOOGle_API_KEY);
+    const json = await data.json();
+    dispatch(addComments(json.items))
+    console.log('comments',json)
+  }
 
   return (
     <div className="mt-[80px] px-12 z-10 w-screen">
@@ -38,7 +47,6 @@ const WatchVideo = () => {
 
         <LiveChat />
 
-        {/*  this is the ad portion that i miss created, just keeping it like this for now, we can move it after the live chat, */}
       </div>
       <div className="flex w-full justify-between">
         <div className="w-[1380px]">
@@ -87,7 +95,7 @@ const WatchVideo = () => {
         </div>
       </div>
       <div className="flex w-full justify-between">
-        <CommentsContainer />
+        <CommentsContainer commentsCount={videoDetails?.statistics?.commentCount} />
         <div className="w-[400px]">
           {allVideos.map((video,ind) => (
             <VideoCard key={ind} info={video} from={'watchPage'} />
