@@ -35,7 +35,7 @@ const Comment = ({ data, isReply = false, replyCount,toggleReplys,replysToggleVa
             {timeAgo(publishedAt)}
           </span>
         </p>
-        <p>{textOriginal}</p>
+        <p style={{whiteSpace:'pre-wrap'}}>{textOriginal}</p>
         <h1 className="flex items-center font-semibold gap-2 px-4 py-3 rounded-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +48,7 @@ const Comment = ({ data, isReply = false, replyCount,toggleReplys,replysToggleVa
           </svg>{" "}
           <p className="text-[#707070f0] font-normal text-[12px]">
             {likeCount > 0 ? formatViews(likeCount) : ""}
-          </p>
+          </p> 
           <svg
             className=""
             xmlns="http://www.w3.org/2000/svg"

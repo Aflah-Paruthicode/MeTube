@@ -135,6 +135,10 @@ export const YT_VIDEOS_API = (pageId ='') => {
   import.meta.env.VITE_GOOGle_API_KEY;
 }
 
+export const search_API = (query) => { 
+  return 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q='+query+'&maxResults=50&key='+import.meta.env.VITE_GOOGle_API_KEY
+}
+
 
 export const SEARCH_API =
   "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";

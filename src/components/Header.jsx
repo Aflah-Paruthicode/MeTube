@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
-import { SEARCH_API } from "../utils/constants";
+import { search_API, SEARCH_API } from "../utils/constants";
 import { cacheResults } from "../utils/searchSlice";
+import { addSearchVideos } from "../utils/searchVideosSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const [searchText, setSearchText] = useState("");
-  const [suggestions,setSuggestions] = useState([])
-  const [showSuggestions,setShowSuggestions] = useState(false)
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const togggleMenuHandler = () => {
     dispatch(toggleMenu());
   };
-  const chachedData =  useSelector(store => store.search);
+  const chachedData = useSelector((store) => store.search);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if(chachedData[searchText]) {
+      if (chachedData[searchText]) {
         setSuggestions(chachedData[searchText]);
       } else {
-        getSearchSuggestions()
+        getSearchSuggestions();
       }
     }, 300);
 
@@ -30,10 +31,19 @@ const Header = () => {
 
   const getSearchSuggestions = async () => {
     const data = await fetch(SEARCH_API + searchText);
-    const json = await data.json(); 
-    console.log(json[1]);
+    const json = await data.json();
+    console.log("single", json[1]);
     setSuggestions(json[1]);
-    dispatch(cacheResults({[searchText] : json[1]}))
+    dispatch(cacheResults({ [searchText]: json[1] }));
+  };
+
+  const handleSearchVideos = async (suggestion) => {
+    console.log("reached here  :  ", suggestion);
+    const api = search_API(suggestion);
+    const data = await fetch(api);
+    const json = await data.json();
+    dispatch(addSearchVideos(json.items))
+    console.log(json);
   };
 
   return (
@@ -57,36 +67,46 @@ const Header = () => {
       <div className="col-span-9 m-auto font-normal flex items-center gap-3">
         <div>
           <input
-          className="border-gray-300 border border-[0.5px] py-[6px] w-[500px] px-5  rounded-l-full border-r-0 outline-gray-300 outline-1"
-          type="search"
-          placeholder="search..."
-          onChange={(e) => {
-            setSearchText(e.target.value);
-          }}
-          onFocus={() => setShowSuggestions(true)}
-          onBlur={() => setShowSuggestions(false)}
-        />
-        { showSuggestions && <div className="absolute w-[500px] bg-white px-2 py-2 rounded-2xl shadow-2xl mt-2">
-          <ul className="font-semibold"> 
-          {suggestions.map((sugg,ind) => 
-            <li key={ind} className="flex text-[14px] hover:bg-gray-200 py-2 px-4 rounded-lg"> 
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="25px"
-                viewBox="0 -960 960 960"
-                width="40px"
-                fill="#00000"
-              >
-                <path d="M792-120.67 532.67-380q-30 25.33-69.64 39.67Q423.39-326 378.67-326q-108.44 0-183.56-75.17Q120-476.33 120-583.33t75.17-182.17q75.16-75.17 182.5-75.17 107.33 0 182.16 75.17 74.84 75.17 74.84 182.27 0 43.23-14 82.9-14 39.66-40.67 73l260 258.66-48 48Zm-414-272q79.17 0 134.58-55.83Q568-504.33 568-583.33q0-79-55.42-134.84Q457.17-774 378-774q-79.72 0-135.53 55.83-55.8 55.84-55.8 134.84t55.8 134.83q55.81 55.83 135.53 55.83Z" />
-              </svg>
-              {sugg}
-            </li>
+            className="border-gray-300 border border-[0.5px] py-[6px] w-[500px] px-5  rounded-l-full border-r-0 outline-gray-300 outline-1"
+            type="search"
+            placeholder="search..."
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+            onFocus={() => setShowSuggestions(true)}
+            onBlur={() => setShowSuggestions(false)}
+          />
+          {showSuggestions && (
+            <div className="absolute w-[500px] bg-white px-2 py-2 rounded-2xl shadow-2xl mt-2">
+              <ul className="font-semibold">
+                {suggestions.map((sugg, ind) => (
+                  <li
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      console.log('clicked haha ')
+                      handleSearchVideos(sugg);
+                    }}
+                    key={ind}
+                    className="flex w-full cursor-pointer text-[14px] hover:bg-gray-200 py-2 px-4 rounded-lg z-[9999999]"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="25px"
+                      viewBox="0 -960 960 960"
+                      width="40px"
+                      fill="#00000"
+                    >
+                      <path d="M792-120.67 532.67-380q-30 25.33-69.64 39.67Q423.39-326 378.67-326q-108.44 0-183.56-75.17Q120-476.33 120-583.33t75.17-182.17q75.16-75.17 182.5-75.17 107.33 0 182.16 75.17 74.84 75.17 74.84 182.27 0 43.23-14 82.9-14 39.66-40.67 73l260 258.66-48 48Zm-414-272q79.17 0 134.58-55.83Q568-504.33 568-583.33q0-79-55.42-134.84Q457.17-774 378-774q-79.72 0-135.53 55.83-55.8 55.84-55.8 134.84t55.8 134.83q55.81 55.83 135.53 55.83Z" />
+                    </svg>
+                    {sugg}
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
-          </ul>
-        </div>}
-        <button className="px-6 rounded-r-full my-auto border-gray-300 bg-gray-200 border border-[0.5px] py-[7px]">
-          Search
-        </button>
+          <button className="px-6 rounded-r-full my-auto border-gray-300 bg-gray-200 border border-[0.5px] py-[7px]">
+            Search
+          </button>
         </div>
         <button className="rounded-full mx-1  bg-gray-200 p-[6px]">
           <svg
@@ -101,7 +121,18 @@ const Header = () => {
         </button>
       </div>
       <div className=" col-span-2 m-auto flex gap-3 justify-end w-full">
-        <p className="col-span-4 my-auto bg-gray-200 px-5 py-1 rounded-full flex font-semibold"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00000"><path d="M480-120q-17 0-28.5-11.5T440-160v-280H160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520h280v-280q0-17 11.5-28.5T480-840q17 0 28.5 11.5T520-800v280h280q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440H520v280q0 17-11.5 28.5T480-120Z"/></svg> Create</p>
+        <p className="col-span-4 my-auto bg-gray-200 px-5 py-1 rounded-full flex font-semibold">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#00000"
+          >
+            <path d="M480-120q-17 0-28.5-11.5T440-160v-280H160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520h280v-280q0-17 11.5-28.5T480-840q17 0 28.5 11.5T520-800v280h280q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440H520v280q0 17-11.5 28.5T480-120Z" />
+          </svg>{" "}
+          Create
+        </p>
         <svg
           className=" my-auto"
           xmlns="http://www.w3.org/2000/svg"
