@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeMenu } from "../utils/appSlice";
 import { useSearchParams } from "react-router-dom";
@@ -14,28 +14,48 @@ const WatchVideo = () => {
   const [searchparams] = useSearchParams();
   const allVideos = useSelector((store) => store.videos.videos);
   const searchVideos = useSelector((store) => store.searchVideos.videos);
+  const [commentsDisabled,setCommentsDisabled] = useState(false)
   const id = searchparams.get("v");
-  let videoDetails = allVideos.find((item) => item.id == id);
-  if (!videoDetails) { 
-    videoDetails = searchVideos.find((item) => item.id.videoId == id);
-    console.log('yeah here is the id', videoDetails)
-    async function getVideoDetails() {
-      let data = await fetch(
-        `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${videoDetails.id.videoId}&key=`+import.meta.env.VITE_GOOGle_API_KEY
-      );
-      const statsData = await data.json();
-      videoDetails = statsData.items[0];
-      
-      console.log("the  video is : ", videoDetails);
+  const [videoDetails, setVideoDetails] = useState(
+    allVideos.find((item) => item.id == id)
+  );
+
+  useEffect(() => {
+    let found = allVideos.find((item) => item.id == id);
+
+    if (found) {
+      setVideoDetails(found);
+      setCommentsDisabled(false)
+    } else {
+      const searchItem = searchVideos.find((item) => item.id.videoId == id);
+      if (searchItem) {
+        fetchVideoDetails(searchItem.id.videoId);
+      }
     }
-    getVideoDetails() 
+  }, [id, allVideos, searchVideos]);
+
+  async function fetchVideoDetails(videoId) {
+    try {
+      const res = await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${videoId}&key=${
+          import.meta.env.VITE_GOOGle_API_KEY
+        }`
+      );
+      const data = await res.json();
+      setVideoDetails(data.items[0]);
+    } catch (err) {
+      console.error("Failed to fetch video details", err);
+    }
   }
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(closeMenu());
     getComments();
   }, [id]);
+
   console.log("hahaha its working dude");
+
   const getComments = async () => {
     const data = await fetch(
       "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=" +
@@ -44,11 +64,14 @@ const WatchVideo = () => {
         import.meta.env.VITE_GOOGle_API_KEY
     );
     const json = await data.json();
+    if (json.error?.errors?.[0]?.reason === "commentsDisabled") {
+      dispatch(addComments([]));
+      setCommentsDisabled(true);
+      return;
+    }
     dispatch(addComments(json.items));
     console.log("comments", json);
   };
-
-  if(!videoDetails) return
 
   return (
     <div className="mt-[80px] px-12 z-10 w-screen">
@@ -69,10 +92,14 @@ const WatchVideo = () => {
       </div>
       <div className="flex w-full justify-between">
         <div className="w-[1380px]">
-          {/* <ChannelDetails
-            details={videoDetails.snippet}
-            counts={videoDetails.statistics}
-          /> */}
+          {videoDetails ? (
+            <ChannelDetails
+              details={videoDetails.snippet}
+              counts={videoDetails.statistics}
+            />
+          ) : (
+            <p className="text-gray-500">Loading video details...</p>
+          )}
         </div>
         <div
           className="h-40 border cursor-pointer rounded-2xl z-20 mt-5 border-gray-200"
@@ -114,9 +141,11 @@ const WatchVideo = () => {
         </div>
       </div>
       <div className="flex w-full justify-between">
-        <CommentsContainer
+        { !commentsDisabled ? <CommentsContainer
           commentsCount={videoDetails?.statistics?.commentCount}
-        />
+        /> : <div className="p-2 w-[1380px] text-center">
+          <p>Comments are turned off. <span className="text-blue-700">Learn more</span></p>
+        </div> }
         <div className="w-[400px]">
           {allVideos.map((video, ind) => (
             <VideoCard key={ind} info={video} from={"watchPage"} />
