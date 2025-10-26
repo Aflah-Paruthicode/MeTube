@@ -39,7 +39,6 @@ const VideoContainer = () => {
     dispatch(addVideos(json.items));
     setNextPageToken(json.nextPageToken);
     setTimeout(() => setLoading(false), 500);
-    if (json) console.log(json);
   };
 
   return (

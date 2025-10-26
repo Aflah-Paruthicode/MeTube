@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import { formatViews } from '../utils/formateCount';
 
 const CommentsContainer = ({commentsCount}) => {
+  console.log('comment count',commentsCount)
+  if(!commentsCount) return
     const data = dummyComments;
     const comments = useSelector(store => store.comments.comments)
   return (

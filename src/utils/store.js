@@ -13,7 +13,7 @@ const store = configureStore({
     chat: chatSlice,
     videos: videosSlice,
     comments: commentSlice,
-    searchVideosSlice:searchVideosSlice
+    searchVideos:searchVideosSlice
   },
 });
 

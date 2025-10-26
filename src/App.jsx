@@ -6,6 +6,7 @@ import store from './utils/store'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import MainContainer from './components/MainContainer'
 import WatchVideo from './components/WatchVideo'
+import SearchResults from './components/SearchResults'
 
 function App() {
 
@@ -20,6 +21,10 @@ function App() {
       {
         path : 'watch',
         element : <WatchVideo />
+      },
+      {
+        path : 'search',
+        element : <SearchResults />
       }
     ]
 
@@ -27,8 +32,7 @@ function App() {
 
   return (
     <Provider store={store} >
-    <div className=''>
-      <Header /> 
+    <div className=''> 
       <RouterProvider router={appRouter} />
     </div>
     </Provider>

@@ -4,12 +4,14 @@ import { toggleMenu } from "../utils/appSlice";
 import { search_API, SEARCH_API } from "../utils/constants";
 import { cacheResults } from "../utils/searchSlice";
 import { addSearchVideos } from "../utils/searchVideosSlice";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch();
   const [searchText, setSearchText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const navigate = useNavigate()
   const togggleMenuHandler = () => {
     dispatch(toggleMenu());
   };
@@ -32,18 +34,16 @@ const Header = () => {
   const getSearchSuggestions = async () => {
     const data = await fetch(SEARCH_API + searchText);
     const json = await data.json();
-    console.log("single", json[1]);
     setSuggestions(json[1]);
     dispatch(cacheResults({ [searchText]: json[1] }));
   };
 
   const handleSearchVideos = async (suggestion) => {
-    console.log("reached here  :  ", suggestion);
     const api = search_API(suggestion);
     const data = await fetch(api);
     const json = await data.json();
     dispatch(addSearchVideos(json.items))
-    console.log(json);
+    navigate('search')
   };
 
   return (
@@ -83,7 +83,6 @@ const Header = () => {
                   <li
                     onMouseDown={(e) => {
                       e.preventDefault();
-                      console.log('clicked haha ')
                       handleSearchVideos(sugg);
                     }}
                     key={ind}

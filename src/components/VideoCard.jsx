@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { formatViews } from "../utils/formateCount";
 import { timeAgo } from "../utils/timeAgo";
 
-const VideoCard = ({ info, from = false }) => {
+const VideoCard = ({ info, from = false, fromSearch = false }) => {
   if (!info) return;
   const { snippet, statistics } = info;
   const { channelTitle, title, thumbnails, publishedAt } = snippet;
 
   return (
     <Link
-      to={from ? "?v=" + info.id : "watch?v=" + info.id}
+      to={fromSearch ? "/watch?v=" + info.id.videoId : from ? "?v=" + info.id : "watch?v=" + info.id}
       className={`p-2  z-10 hover:bg-gray-200 rounded-2xl transition-colors delay-150 duration-500 ${
         from ? "w-full p-0" : "w-1/4"
       }`}
@@ -35,7 +35,7 @@ const VideoCard = ({ info, from = false }) => {
             {channelTitle}
           </li>
           <li className="text-gray-600 font-normal text-[14px]">
-            {formatViews(statistics.viewCount)} views {timeAgo(publishedAt)}
+            { statistics?.viewCount && formatViews(statistics?.viewCount) +'views'}  {timeAgo(publishedAt)}
           </li>
         </ul>
       </div>

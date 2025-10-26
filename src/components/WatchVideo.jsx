@@ -8,27 +8,47 @@ import { ChannelDetails } from "./ChannelDetails";
 import { AdsLogo } from "../utils/constants";
 import VideoCard from "./VideoCard";
 import { addComments } from "../utils/commentsSlice";
+import store from "../utils/store";
 
 const WatchVideo = () => {
   const [searchparams] = useSearchParams();
   const allVideos = useSelector((store) => store.videos.videos);
-  const id = searchparams.get("v")
-  console.log("all : ", allVideos);
-  const videoDetails = allVideos.find(
-    (item) => item.id == id
-  );
+  const searchVideos = useSelector((store) => store.searchVideos.videos);
+  const id = searchparams.get("v");
+  let videoDetails = allVideos.find((item) => item.id == id);
+  if (!videoDetails) { 
+    videoDetails = searchVideos.find((item) => item.id.videoId == id);
+    console.log('yeah here is the id', videoDetails)
+    async function getVideoDetails() {
+      let data = await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${videoDetails.id.videoId}&key=`+import.meta.env.VITE_GOOGle_API_KEY
+      );
+      const statsData = await data.json();
+      videoDetails = statsData.items[0];
+      
+      console.log("the  video is : ", videoDetails);
+    }
+    getVideoDetails() 
+  }
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(closeMenu());
-    getComments()
+    getComments();
   }, [id]);
-console.log('hahaha its working dude')
+  console.log("hahaha its working dude");
   const getComments = async () => {
-    const data = await fetch('https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId='+searchparams.get("v")+'&maxResults=50&order=time&key='+import.meta.env.VITE_GOOGle_API_KEY);
+    const data = await fetch(
+      "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=" +
+        searchparams.get("v") +
+        "&maxResults=50&order=time&key=" +
+        import.meta.env.VITE_GOOGle_API_KEY
+    );
     const json = await data.json();
-    dispatch(addComments(json.items))
-    console.log('comments',json)
-  }
+    dispatch(addComments(json.items));
+    console.log("comments", json);
+  };
+
+  if(!videoDetails) return
 
   return (
     <div className="mt-[80px] px-12 z-10 w-screen">
@@ -46,14 +66,13 @@ console.log('hahaha its working dude')
         ></iframe>
 
         <LiveChat />
-
       </div>
       <div className="flex w-full justify-between">
         <div className="w-[1380px]">
-          <ChannelDetails
+          {/* <ChannelDetails
             details={videoDetails.snippet}
             counts={videoDetails.statistics}
-          />
+          /> */}
         </div>
         <div
           className="h-40 border cursor-pointer rounded-2xl z-20 mt-5 border-gray-200"
@@ -95,12 +114,14 @@ console.log('hahaha its working dude')
         </div>
       </div>
       <div className="flex w-full justify-between">
-        <CommentsContainer commentsCount={videoDetails?.statistics?.commentCount} />
+        <CommentsContainer
+          commentsCount={videoDetails?.statistics?.commentCount}
+        />
         <div className="w-[400px]">
-          {allVideos.map((video,ind) => (
-            <VideoCard key={ind} info={video} from={'watchPage'} />
+          {allVideos.map((video, ind) => (
+            <VideoCard key={ind} info={video} from={"watchPage"} />
           ))}
-        </div> 
+        </div>
       </div>
     </div>
   );
