@@ -105,7 +105,7 @@ const Header = () => {
               </ul>
             </div>
           )}
-          <button className="px-6 rounded-r-full my-auto border-gray-300 bg-gray-200 border border-[0.5px] py-[7px]">
+          <button onClick={() => handleSearchVideos(searchText)} className="px-6 rounded-r-full my-auto border-gray-300 bg-gray-200 border border-[0.5px] cursor-pointer py-[7px]">
             Search
           </button>
         </div>
