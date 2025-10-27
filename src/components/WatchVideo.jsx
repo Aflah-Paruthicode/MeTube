@@ -8,7 +8,6 @@ import { ChannelDetails } from "./ChannelDetails";
 import { AdsLogo } from "../utils/constants";
 import VideoCard from "./VideoCard";
 import { addComments } from "../utils/commentsSlice";
-import store from "../utils/store";
 
 const WatchVideo = () => {
   const [searchparams] = useSearchParams();
@@ -21,6 +20,7 @@ const WatchVideo = () => {
   );
 
   useEffect(() => { 
+
     let found = allVideos.find((item) => item.id == id);
 
     if (found) {
@@ -32,6 +32,7 @@ const WatchVideo = () => {
         fetchVideoDetails(searchItem.id.videoId);
       }
     } 
+
   }, [id, allVideos, searchVideos]);
 
   async function fetchVideoDetails(videoId) {
@@ -69,9 +70,7 @@ const WatchVideo = () => {
       return;
     }
     dispatch(addComments(json.items));
-  };
-
-  console.log('checking is rendering twice ',videoDetails)
+  }
 
   return (
     <div className="mt-[80px] px-12 z-10 w-screen">

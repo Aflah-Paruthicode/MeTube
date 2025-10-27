@@ -11,6 +11,7 @@ const VideoCard = ({ info, from = false, fromSearch = false }) => {
   return (
     <Link
       to={fromSearch ? "/watch?v=" + info.id.videoId : from ? "/watch?v=" + info.id : "/watch?v=" + info.id}
+
       className={`p-2  z-10 hover:bg-gray-200 rounded-2xl transition-colors delay-150 duration-500 ${
         from ? "w-full p-0" : "w-1/4"
       }`}

@@ -44,6 +44,7 @@ const Header = () => {
     const json = await data.json();
     dispatch(addSearchVideos(json.items))
     navigate('/search',{replace: false }) 
+
   };
 
   return (
@@ -77,6 +78,7 @@ const Header = () => {
             onBlur={() => setShowSuggestions(false)}
           />
           {showSuggestions && suggestions.length > 0 && (
+
             <div className="absolute w-[500px] bg-white px-2 py-2 rounded-2xl shadow-2xl mt-2">
               <ul className="font-semibold">
                 {suggestions.map((sugg, ind) => (
