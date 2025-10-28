@@ -36,7 +36,7 @@ const VideoCard = ({ info, from = false, fromSearch = false }) => {
             {channelTitle}
           </li>
           <li className="text-gray-600 font-normal text-[14px]">
-            { statistics?.viewCount && formatViews(statistics?.viewCount) +'views'}  {timeAgo(publishedAt)}
+            { statistics?.viewCount && formatViews(statistics?.viewCount) +' views'}&nbsp; {timeAgo(publishedAt)}
           </li>
         </ul>
       </div>
