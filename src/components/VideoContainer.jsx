@@ -36,6 +36,7 @@ const VideoContainer = () => {
     setLoading(true);
     const data = await fetch(YT_VIDEOS_API(nextPageToken));
     const json = await data.json();
+    console.log('datas : ',json)
     dispatch(addVideos(json.items)); 
     setNextPageToken(json.nextPageToken);
     setTimeout(() => setLoading(false), 500);

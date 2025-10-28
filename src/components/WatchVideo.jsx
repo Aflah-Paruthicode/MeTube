@@ -19,10 +19,11 @@ const WatchVideo = () => {
 
   useEffect(() => {
     const fetchVideos = async () => {
-      if (allVideos.length === 0) {
+      if (allVideos.length === 0 ) {
         console.log("yeah it's empty");
         const data = await fetch(YT_VIDEOS_API());
         const json = await data.json();
+        console.log('all videos : ',json)
         dispatch(addVideos(json.items));
       }
     };
@@ -45,18 +46,19 @@ const WatchVideo = () => {
       const searchItem = searchVideos.find((item) => item.id.videoId == id);
       if (searchItem) {
         fetchVideoDetails(searchItem.id.videoId);
+      } else {
+        fetchVideoDetails(searchparams.get("v"))
       }
     }
   }, [id, allVideos, searchVideos]);
 
-  async function fetchVideoDetails(videoId) {
+  async function fetchVideoDetails(videoId) { 
     try {
       const res = await fetch(
-        `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${videoId}&key=${
-          import.meta.env.VITE_GOOGle_API_KEY
-        }`
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${videoId}&key=${import.meta.env.VITE_GOOGle_API_KEY2}`
       );
       const data = await res.json();
+      console.log('get video details : ',data)
       setVideoDetails(data.items[0]);
     } catch (err) {
       console.error("Failed to fetch video details", err);
@@ -69,19 +71,17 @@ const WatchVideo = () => {
   }, [id, videoDetails]);
 
   const getComments = async () => {
-    const data = await fetch(
-      "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=" +
-        searchparams.get("v") +
-        "&maxResults=50&order=time&key=" +
-        import.meta.env.VITE_GOOGle_API_KEY
-    );
+    const data = await fetch("https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=" +searchparams.get("v") +'&key='+import.meta.env.VITE_GOOGle_API_KEY2);
     const json = await data.json();
+    console.log('data : ',json)
     if (json.error?.errors?.[0]?.reason === "commentsDisabled") {
       dispatch(addComments([]));
+      console.log('comments zero setuped')
       setCommentsDisabled(true);
       return;
     }
     dispatch(addComments(json.items));
+    console.log('problem is here ?')
   };
 
   return (
@@ -153,9 +153,7 @@ const WatchVideo = () => {
       </div>
       <div className="flex w-full justify-between">
         {!commentsDisabled ? (
-          <CommentsContainer
-            commentsCount={videoDetails?.statistics?.commentCount}
-          />
+          <CommentsContainer commentsCount={videoDetails?.statistics?.commentCount}/>
         ) : (
           <div className="p-2 w-[1380px] text-center">
             <p>

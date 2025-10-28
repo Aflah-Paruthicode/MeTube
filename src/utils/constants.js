@@ -131,12 +131,11 @@ export const SideBarOptions = [
 
 export const YT_VIDEOS_API = (pageId ='') => {
 
-  return "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=50&chart=mostPopular&regionCode=IN&pageToken="+pageId+"&key=" +
-  import.meta.env.VITE_GOOGle_API_KEY;
+  return "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=50&chart=mostPopular&regionCode=IN&pageToken="+pageId+"&key=" +import.meta.env.VITE_GOOGle_API_KEY2;
 }
 
 export const search_API = (query) => { 
-  return 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q='+query+'&maxResults=50&key='+import.meta.env.VITE_GOOGle_API_KEY
+  return 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q='+query+'&maxResults=50&key='+import.meta.env.VITE_GOOGle_API_KEY2
 }
 
 
