@@ -5,34 +5,48 @@ import { useSearchParams } from "react-router-dom";
 import CommentsContainer from "./CommentsContainer";
 import LiveChat from "./LiveChat";
 import { ChannelDetails } from "./ChannelDetails";
-import { AdsLogo } from "../utils/constants";
+import { AdsLogo, YT_VIDEOS_API } from "../utils/constants";
 import VideoCard from "./VideoCard";
 import { addComments } from "../utils/commentsSlice";
+import { addVideos } from "../utils/videosSlice";
 
 const WatchVideo = () => {
   const [searchparams] = useSearchParams();
   const allVideos = useSelector((store) => store.videos.videos);
   const searchVideos = useSelector((store) => store.searchVideos.videos);
-  const [commentsDisabled,setCommentsDisabled] = useState(false)
+  const dispatch = useDispatch();
+  const [commentsDisabled, setCommentsDisabled] = useState(false);
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      if (allVideos.length === 0) {
+        console.log("yeah it's empty");
+        const data = await fetch(YT_VIDEOS_API());
+        const json = await data.json();
+        dispatch(addVideos(json.items));
+      }
+    };
+
+    fetchVideos();
+  }, [allVideos.length]);
+
   const id = searchparams.get("v");
   const [videoDetails, setVideoDetails] = useState(
     allVideos.find((item) => item.id == id)
   );
 
-  useEffect(() => { 
-
+  useEffect(() => {
     let found = allVideos.find((item) => item.id == id);
 
     if (found) {
       setVideoDetails(found);
-      setCommentsDisabled(false)
+      setCommentsDisabled(false);
     } else {
       const searchItem = searchVideos.find((item) => item.id.videoId == id);
       if (searchItem) {
         fetchVideoDetails(searchItem.id.videoId);
       }
-    } 
-
+    }
   }, [id, allVideos, searchVideos]);
 
   async function fetchVideoDetails(videoId) {
@@ -49,12 +63,10 @@ const WatchVideo = () => {
     }
   }
 
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(closeMenu());
     getComments();
-  }, [id,videoDetails]);
-
+  }, [id, videoDetails]);
 
   const getComments = async () => {
     const data = await fetch(
@@ -70,7 +82,7 @@ const WatchVideo = () => {
       return;
     }
     dispatch(addComments(json.items));
-  }
+  };
 
   return (
     <div className="mt-[80px] px-12 z-10 w-screen">
@@ -140,11 +152,18 @@ const WatchVideo = () => {
         </div>
       </div>
       <div className="flex w-full justify-between">
-        { !commentsDisabled ? <CommentsContainer
-          commentsCount={videoDetails?.statistics?.commentCount}
-        /> : <div className="p-2 w-[1380px] text-center">
-          <p>Comments are turned off. <span className="text-blue-700">Learn more</span></p>
-        </div> }
+        {!commentsDisabled ? (
+          <CommentsContainer
+            commentsCount={videoDetails?.statistics?.commentCount}
+          />
+        ) : (
+          <div className="p-2 w-[1380px] text-center">
+            <p>
+              Comments are turned off.{" "}
+              <span className="text-blue-700">Learn more</span>
+            </p>
+          </div>
+        )}
         <div className="w-[400px]">
           {allVideos.map((video, ind) => (
             <VideoCard key={ind} info={video} from={"watchPage"} />
