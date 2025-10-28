@@ -11,7 +11,7 @@ const Header = () => {
   const [searchText, setSearchText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const togggleMenuHandler = () => {
     dispatch(toggleMenu());
   };
@@ -42,9 +42,9 @@ const Header = () => {
     const api = search_API(suggestion);
     const data = await fetch(api);
     const json = await data.json();
-    dispatch(addSearchVideos(json.items))
-    navigate('/search',{replace: false }) 
-
+    dispatch(addSearchVideos(json.items));
+    navigate("/search", { replace: false });
+    setSearchText(suggestion);
   };
 
   return (
@@ -73,12 +73,13 @@ const Header = () => {
             placeholder="search..."
             onChange={(e) => {
               setSearchText(e.target.value);
+              if(!showSuggestions) setShowSuggestions(true);
             }}
+            value={searchText}
             onFocus={() => setShowSuggestions(true)}
             onBlur={() => setShowSuggestions(false)}
           />
           {showSuggestions && suggestions.length > 0 && (
-
             <div className="absolute w-[500px] bg-white px-2 py-2 rounded-2xl shadow-2xl mt-2">
               <ul className="font-semibold">
                 {suggestions.map((sugg, ind) => (
@@ -86,6 +87,7 @@ const Header = () => {
                     onMouseDown={(e) => {
                       e.preventDefault();
                       handleSearchVideos(sugg);
+                      setShowSuggestions(false);
                     }}
                     key={ind}
                     className="flex w-full cursor-pointer text-[14px] hover:bg-gray-200 py-2 px-4 rounded-lg z-[9999999]"
@@ -105,7 +107,13 @@ const Header = () => {
               </ul>
             </div>
           )}
-          <button onClick={() => handleSearchVideos(searchText)} className="px-6 rounded-r-full my-auto border-gray-300 bg-gray-200 border border-[0.5px] cursor-pointer py-[7px]">
+          <button
+            onClick={() => {
+              handleSearchVideos(searchText);
+              setShowSuggestions(false);
+            }}
+            className="px-6 rounded-r-full my-auto border-gray-300 bg-gray-200 border border-[0.5px] cursor-pointer py-[7px]"
+          >
             Search
           </button>
         </div>

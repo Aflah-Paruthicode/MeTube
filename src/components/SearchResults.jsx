@@ -22,9 +22,9 @@ const SearchResults = () => {
   }
   return (
     <div
-      className={`px-8 mt-[70px] z-[1] w-full ${menuToggle && "ml-[14rem]"}`}
+      className={`px-8 mt-[70px] z-[1] w-full ${menuToggle && "ml-[14rem]"}`} 
     >
-      <div className="mx-auto w-[40%]">
+      <div className="mx-auto w-[65%]">
         {SearchResults.map((video, ind) => (
           <VideoCard key={ind} info={video} fromSearch={true} />
         ))}
