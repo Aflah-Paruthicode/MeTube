@@ -16,20 +16,20 @@ const VideoCard = ({ info, from = false, fromSearch = false }) => {
         from || fromSearch ? "w-full p-0" : "w-1/4"
       }`}
     >
-      <div className={`${from ? "flex max-md:flex-col" : fromSearch ? "flex gap-3" : ""}`}>
+      <div className={`${from ? "flex max-md:flex-col" : fromSearch ? "flex gap-3 max-md:flex-col max-md:mb-4" : ""}`}>
         <img
           className={`rounded-lg aspect-video object-cover z-10 ${
             from ? "w-40 h-24 mx-2 max-md:w-full max-md:h-full " : ""
           }`}
           src={thumbnails.high.url}
           alt=""
-        />
+        /> 
         <ul className={fromSearch ? "w-full" : ""}>
           <li className={`font-semibold ${from ? "text-[14px]" : ""}`}>
             {from ? (
               title.slice(0, 50) + "..."
             ) : fromSearch ? (
-              <h1 className="flex justify-between font-normal text-[17px]">
+              <h1 className="flex justify-between font-normal text-[17px] whitespace-pre-wrap break-words break-all">
                 {title.slice(0, 70) + "..."}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +71,7 @@ const VideoCard = ({ info, from = false, fromSearch = false }) => {
             </>
           )}
           {fromSearch && (
-            <p className="text-[14px] text-gray-600">{snippet.description}</p>
+            <p className="text-[14px] text-gray-600 whitespace-pre-wrap break-words break-all ">{snippet.description}</p>
           )}
         </ul>
       </div>

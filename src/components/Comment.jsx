@@ -52,7 +52,7 @@ const Comment = ({
             {timeAgo(publishedAt)}
           </span>
         </p>
-        <p className="text-sm whitespace-pre-wrap break-words break-all">
+        <p className="text-sm whitespace-pre-wrap break-words break-all"> 
           {textOriginal}
         </p>{" "}
         <h1 className="flex items-center font-semibold gap-2 px-4 py-3 rounded-full">
