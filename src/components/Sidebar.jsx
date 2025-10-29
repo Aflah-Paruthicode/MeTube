@@ -9,7 +9,7 @@ const Sidebar = () => {
   if (!isMenuOpen) return;
 
   return (
-    <div className="w-[14rem] overflow-y-scroll h-screen fixed z-20 mt-[70px] pb-[70px] bg-white">
+    <div className="w-[14rem] overflow-y-scroll h-screen fixed max-md:top-0 max-md:left-0 z-20 mt-[70px] pb-[70px] bg-white">
       <Link to={'/'} className="flex gap-6 mx-5 py-[8px] px-2 hover:bg-[#dcdcdc] rounded-lg">
         <svg 
           xmlns="http://www.w3.org/2000/svg"

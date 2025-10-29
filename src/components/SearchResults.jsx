@@ -10,7 +10,7 @@ const SearchResults = () => {
   if (SearchResults.length == 0) {
     return (
       <div
-        className={`px-8 mt-[70px] z-[1] w-full ${menuToggle && "ml-[14rem]"}`}
+        className={`px-8 mt-[70px] z-[1] w-full ${menuToggle && "ml-[14rem] max-md:ml-0"}`}
       >
         <div className="w-full flex items-center justify-center flex-col h-[80vh]">
           <img src="/notFound.png" alt="" />
@@ -22,7 +22,7 @@ const SearchResults = () => {
   }
   return (
     <div
-      className={`px-8 mt-[70px] z-[1] w-full ${menuToggle && "ml-[14rem]"}`} 
+      className={`px-8 mt-[70px] z-[1] w-full ${menuToggle && "ml-[14rem] max-md:ml-0"}`} 
     >
       <div className="mx-auto w-[65%]">
         {SearchResults.map((video, ind) => (
