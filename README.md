@@ -57,3 +57,5 @@ npm run dev
 *Developed with ❤️ by [Aflu](https://github.com/Aflah-Paruthicode)*  
 *"Passionate about building and learning by doing."*
 ---
+
+⭐ If you like this project, consider giving it a star haha!
