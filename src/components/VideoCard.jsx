@@ -12,7 +12,7 @@ const VideoCard = ({ info, from = false, fromSearch = false }) => {
     <Link
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       to={fromSearch ? "/watch?v=" + info.id.videoId : "/watch?v=" + info.id}
-      className={`p-2  z-10 hover:bg-gray-200 rounded-2xl transition-colors delay-150 duration-500 ${
+      className={`p-2  z-10 hover:bg-gray-200 rounded-2xl transition-colors delay-150 duration-500 max-md:w-full ${
         from || fromSearch ? "w-full p-0" : "w-1/4"
       }`}
     >

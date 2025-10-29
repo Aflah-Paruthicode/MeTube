@@ -7,7 +7,7 @@ import store from '../utils/store'
 const MainContainer = () => {
   const menuToggle = useSelector((store) => store.app.isMenuOpen)
   return (
-    <div className={`px-8 mt-[70px] z-[1]  ${ menuToggle &&  'ml-[14rem]' }`}> 
+    <div className={`px-8 max-md:px-3 mt-[70px] z-[1]  ${ menuToggle &&  'ml-[14rem]' }`}> 
         <ButtonList  /> 
         <VideoContainer /> 
     </div>

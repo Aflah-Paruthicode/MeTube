@@ -48,8 +48,8 @@ const Header = () => {
   };
 
   return (
-    <div className="grid grid-cols-12 w-full h-[70px] px-7 fixed top-0 bg-white z-[999999999]">
-      <div className="col-span-1 grid grid-cols-10">
+    <div className="grid grid-cols-12 max-md:grid-cols-8 w-full h-[70px] px-7 fixed top-0 bg-white z-[999999999]">
+      <div className="col-span-1 max-md:col-span-3 grid grid-cols-10">
         <svg
           onClick={togggleMenuHandler}
           className="col-span-2 m-auto cursor-pointer"
@@ -65,8 +65,8 @@ const Header = () => {
           <img src="/logo.png" alt="" />
         </div>
       </div>
-      <div className="col-span-9 m-auto font-normal flex items-center gap-3">
-        <div>
+      <div className="col-span-9 max-md:col-span-3 m-auto font-normal flex items-center gap-3">
+        <div className="max-md:hidden">
           <input
             className="border-gray-300 border border-[0.5px] py-[6px] w-[500px] px-5  rounded-l-full border-r-0 outline-gray-300 outline-1"
             type="search"
@@ -117,7 +117,7 @@ const Header = () => {
             Search
           </button>
         </div>
-        <button className="rounded-full mx-1  bg-gray-200 p-[6px]">
+        <button className="rounded-full mx-1  bg-gray-200 p-[6px] max-md:hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="24px"
