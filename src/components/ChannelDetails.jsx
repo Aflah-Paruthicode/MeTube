@@ -21,7 +21,7 @@ export const ChannelDetails = ({ details, counts }) => {
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtRs_rWILOMx5-v3aXwJu7LWUhnPceiKvvDg&s"
             alt=""
           />
-          <h1>{details.channelTitle}</h1>
+          <h1 className="whitespace-pre-wrap break-words break-all">{details.channelTitle}</h1>
           <button
             onClick={() => setSubscribed(!subscribe)}
             className={`flex items-center px-3 h-10 ${
