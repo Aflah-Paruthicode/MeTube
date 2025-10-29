@@ -22,7 +22,7 @@ const LiveChat = () => {
     return () => clearInterval(i);
   }, []);
   return (
-    <div className="w-[400px] h-[730px] border border-gray-200 rounded-2xl">
+    <div className="w-[400px] h-[730px] border border-gray-200 rounded-2xl max-md:hidden">
       <div className="flex justify-between px-6 py-3 border-b border-gray-200"> 
         <h1 className="flex">
           Top chat

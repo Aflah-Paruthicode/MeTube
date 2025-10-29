@@ -16,10 +16,10 @@ const VideoCard = ({ info, from = false, fromSearch = false }) => {
         from || fromSearch ? "w-full p-0" : "w-1/4"
       }`}
     >
-      <div className={`${from ? "flex" : fromSearch ? "flex gap-3" : ""}`}>
+      <div className={`${from ? "flex max-md:flex-col" : fromSearch ? "flex gap-3" : ""}`}>
         <img
           className={`rounded-lg aspect-video object-cover z-10 ${
-            from ? "w-40 h-24 mx-2" : ""
+            from ? "w-40 h-24 mx-2 max-md:w-full max-md:h-full " : ""
           }`}
           src={thumbnails.high.url}
           alt=""

@@ -14,7 +14,7 @@ export const ChannelDetails = ({ details, counts }) => {
   return (
     <div>
       <h1 className="font-bold text-[17px] py-2">{details.title}</h1>
-      <div className="flex justify-between">
+      <div className="flex justify-between max-md:flex-col">
         <div className="flex gap-2">
           <img
             className=" w-12"
@@ -103,7 +103,7 @@ export const ChannelDetails = ({ details, counts }) => {
               )}
             </span>
           </h1>
-          <h1 className="flex items-center font-semibold gap-2 px-4 py-1 bg-gray-200 rounded-full cursor-pointer">
+          <h1 className="flex items-center font-semibold gap-2 px-4 py-1 bg-gray-200 rounded-full cursor-pointer max-md:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
@@ -115,7 +115,7 @@ export const ChannelDetails = ({ details, counts }) => {
             </svg>
             Share
           </h1>
-          <h1 className="flex items-center font-semibold gap-2 px-4 py-1 bg-gray-200 rounded-full cursor-pointer">
+          <h1 className="flex items-center font-semibold gap-2 px-4 py-1 bg-gray-200 rounded-full cursor-pointer max-md:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
@@ -127,7 +127,7 @@ export const ChannelDetails = ({ details, counts }) => {
             </svg>
             Download
           </h1>
-          <h1 className="flex items-center font-semibold gap-2 px-4 py-1 bg-gray-200 rounded-full cursor-pointer">
+          <h1 className="flex items-center font-semibold gap-2 px-4 py-1 bg-gray-200 rounded-full cursor-pointer max-md:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="24px"

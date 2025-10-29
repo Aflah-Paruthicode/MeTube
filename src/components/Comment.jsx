@@ -33,7 +33,11 @@ const Comment = ({
   return (
     <div className="flex gap-2">
       <img
-        className={`rounded-full ${isReply ? "w-8 h-8" : "w-10 h-10"}`}
+        className={`rounded-full ${
+          isReply
+            ? "w-8 h-8 max-md:w-6 max-md:h-6"
+            : "w-10 h-10 max-md:w-8 max-md:h-8"
+        }`}
         src={`${
           authorProfileImageUrl
             ? authorProfileImageUrl
@@ -48,7 +52,9 @@ const Comment = ({
             {timeAgo(publishedAt)}
           </span>
         </p>
-        <p style={{ whiteSpace: "pre-wrap" }}>{textOriginal}</p>
+        <p className="text-sm whitespace-pre-wrap break-words break-all">
+          {textOriginal}
+        </p>{" "}
         <h1 className="flex items-center font-semibold gap-2 px-4 py-3 rounded-full">
           {like ? (
             <svg
@@ -82,15 +88,21 @@ const Comment = ({
             </svg>
           )}{" "}
           <p className="text-[#707070f0] font-normal text-[12px]">
-            {likeCount > 0 ? like ? formatViews(parseInt(likeCount)+1) : formatViews(likeCount) : like ? formatViews(1) : ""}
+            {likeCount > 0
+              ? like
+                ? formatViews(parseInt(likeCount) + 1)
+                : formatViews(likeCount)
+              : like
+              ? formatViews(1)
+              : ""}
           </p>
           {dislike ? (
-            <svg  className="cursor-pointer"
-                  onClick={() => {
-
-                    setDislike(!dislike);
-                    if (like) setLike(false);
-                  }}
+            <svg
+              className="cursor-pointer"
+              onClick={() => {
+                setDislike(!dislike);
+                if (like) setLike(false);
+              }}
               xmlns="http://www.w3.org/2000/svg"
               height="18px"
               viewBox="0 -960 960 960"
@@ -100,11 +112,12 @@ const Comment = ({
               <path d="M144.62-360q-25.08 0-44.85-19.77Q80-399.54 80-424.62v-49.23q0-5.46 1.12-11.92 1.11-6.46 3.34-11.92l109.23-258.93q8.23-18.46 27.69-30.92Q240.85-800 261.54-800h327.69q26.85 0 45.73 18.88 18.89 18.89 18.89 45.74v348.53q0 12.93-5.35 25.12-5.35 12.19-14.04 20.88L428.23-136.38q-8.85 8.61-19.73 10.84-10.88 2.23-20.65-2.38-9.77-4.62-14.04-14.93-4.27-10.3-1.58-23.15l41.15-194H144.62Zm630.76-440q26.85 0 45.74 18.88Q840-762.23 840-735.38v310.76q0 26.85-18.88 45.74Q802.23-360 775.38-360h-16.92q-26.84 0-45.73-18.88-18.88-18.89-18.88-45.74v-311.53q0-26.85 18.88-45.35 18.89-18.5 45.73-18.5h16.92Z" />
             </svg>
           ) : (
-            <svg className="cursor-pointer"
-                  onClick={() => {
-                    setDislike(!dislike);
-                    if (like) setLike(false);
-                  }}
+            <svg
+              className="cursor-pointer"
+              onClick={() => {
+                setDislike(!dislike);
+                if (like) setLike(false);
+              }}
               xmlns="http://www.w3.org/2000/svg"
               height="18px"
               viewBox="0 -960 960 960"
