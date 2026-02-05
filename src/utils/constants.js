@@ -129,83 +129,22 @@ export const SideBarOptions = [
   },
 ];
 
-export const YT_VIDEOS_API = (pageId ='') => {
+export const YT_VIDEOS_API = (pageId = "") => {
+  return (
+    "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=50&chart=mostPopular&regionCode=IN&pageToken=" +
+    pageId +
+    "&key=" +
+    import.meta.env.VITE_GOOGle_API_KEY2
+  );
+};
 
-  return "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=50&chart=mostPopular&regionCode=IN&pageToken="+pageId+"&key=" +import.meta.env.VITE_GOOGle_API_KEY2;
-}
+export const search_API = (query) => {
+  return "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=" + query + "&maxResults=50&key=" + import.meta.env.VITE_GOOGle_API_KEY2;
+};
 
-export const search_API = (query) => { 
-  return 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q='+query+'&maxResults=50&key='+import.meta.env.VITE_GOOGle_API_KEY2
-}
+export const SEARCH_API = "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";
 
 
-export const SEARCH_API =
-  "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";
+export const AdsLogo = "https://www.almircollections.com/logo.png";
 
-export const dummyComments = [
-  {
-    name: "Muhammed Aflah",
-    text: "i wanted to ask you that , what is really html",
-    replies: [
-      {
-        name: "Muhammed Aflah",
-        text: "i wanted to ask you that , what is really html",
-        replies: [
-          {
-            name: "Muhammed Aflah",
-            text: "i wanted to ask you that , what is really html",
-            replies: [],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: "Muhammed Aflah",
-    text: "i wanted to ask you that , what is really html",
-    replies: [
-      {
-        name: "Muhammed Aflah",
-        text: "i wanted to ask you that , what is really html",
-        replies: [],
-      },
-    ],
-  },
-  {
-    name: "Muhammed Aflah",
-    text: "i wanted to ask you that , what is really html",
-    replies: [
-      {
-        name: "Muhammed Aflah",
-        text: "i wanted to ask you that , what is really html",
-        replies: [],
-      },
-    ],
-  },
-  {
-    name: "Muhammed Aflah",
-    text: "i wanted to ask you that , what is really html",
-    replies: [
-      {
-        name: "Muhammed Aflah",
-        text: "i wanted to ask you that , what is really html",
-        replies: [],
-      },
-    ],
-  },
-  {
-    name: "Muhammed Aflah",
-    text: "i wanted to ask you that , what is really html",
-    replies: [
-      {
-        name: "Muhammed Aflah",
-        text: "i wanted to ask you that , what is really html",
-        replies: [],
-      },
-    ],
-  },
-];
-
-export const AdsLogo = 'https://www.almircollections.com/logo.png'
-
-export const Offset_Live_Chat = 50
+export const Offset_Live_Chat = 50;

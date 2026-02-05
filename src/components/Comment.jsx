@@ -2,13 +2,7 @@ import React, { useEffect, useState } from "react";
 import { timeAgo } from "../utils/timeAgo";
 import { formatViews } from "../utils/formateCount";
 
-const Comment = ({
-  data,
-  isReply = false,
-  replyCount,
-  toggleReplys,
-  replysToggleValue,
-}) => {
+const Comment = ({ data, isReply = false, replyCount, toggleReplys, replysToggleValue }) => {
   const [dislike, setDislike] = useState(false);
   const [like, setLike] = useState(false);
   useEffect(() => {
@@ -23,38 +17,21 @@ const Comment = ({
     snippet = data.topLevelComment.snippet;
   }
   if (!snippet) return null;
-  const {
-    authorDisplayName,
-    textOriginal,
-    authorProfileImageUrl,
-    publishedAt,
-    likeCount,
-  } = snippet;
+  const { authorDisplayName, textOriginal, authorProfileImageUrl, publishedAt, likeCount } = snippet;
   return (
     <div className="flex gap-2">
       <img
-        className={`rounded-full ${
-          isReply
-            ? "w-8 h-8 max-md:w-6 max-md:h-6"
-            : "w-10 h-10 max-md:w-8 max-md:h-8"
-        }`}
+        className={`rounded-full ${isReply ? "w-8 h-8 max-md:w-6 max-md:h-6" : "w-10 h-10 max-md:w-8 max-md:h-8"}`}
         src={`${
-          authorProfileImageUrl
-            ? authorProfileImageUrl
-            : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtRs_rWILOMx5-v3aXwJu7LWUhnPceiKvvDg&s"
+          authorProfileImageUrl ? authorProfileImageUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtRs_rWILOMx5-v3aXwJu7LWUhnPceiKvvDg&s"
         }`}
         alt="user"
       />
       <div className="px-3">
         <p className="font-semibold text-[14px]">
-          {authorDisplayName}{" "}
-          <span className="font-normal text-[#424242f0]">
-            {timeAgo(publishedAt)}
-          </span>
+          {authorDisplayName} <span className="font-normal text-[#424242f0]">{timeAgo(publishedAt)}</span>
         </p>
-        <p className="text-sm whitespace-pre-wrap break-words break-all"> 
-          {textOriginal}
-        </p>{" "}
+        <p className="text-sm whitespace-pre-wrap wrap-break-word break-all">{textOriginal}</p>{" "}
         <h1 className="flex items-center font-semibold gap-2 px-4 py-3 rounded-full">
           {like ? (
             <svg
@@ -88,13 +65,7 @@ const Comment = ({
             </svg>
           )}{" "}
           <p className="text-[#707070f0] font-normal text-[12px]">
-            {likeCount > 0
-              ? like
-                ? formatViews(parseInt(likeCount) + 1)
-                : formatViews(likeCount)
-              : like
-              ? formatViews(1)
-              : ""}
+            {likeCount > 0 ? (like ? formatViews(parseInt(likeCount) + 1) : formatViews(likeCount)) : like ? formatViews(1) : ""}
           </p>
           {dislike ? (
             <svg
@@ -127,22 +98,14 @@ const Comment = ({
               <path d="M120-320q-32 0-56-24t-24-56v-80q0-7 2-15t4-15l120-282q9-20 30-34t44-14h440v520L440-82q-15 15-35.5 17.5T365-72q-19-10-28-28t-4-37l45-183H120Zm480-34v-406H240L120-480v80h360l-54 220 174-174Zm200-486q33 0 56.5 23.5T880-760v360q0 33-23.5 56.5T800-320H680v-80h120v-360H680v-80h120Zm-200 80v406-406Z" />
             </svg>
           )}
-          <p className="text-[14px] flex items-center text-[#424242f0]">
-            Reply
-          </p>
+          <p className="text-[14px] flex items-center text-[#424242f0]">Reply</p>
         </h1>
         {replyCount && (
           <h1
             onClick={() => toggleReplys(!replysToggleValue)}
             className="inline-flex gap-2 pt-1 pb-6  text-blue-800 font-semibold text-[14px] m-auto cursor-pointer"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 -960 960 960"
-              width="24px"
-              fill="#193cb8"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#193cb8">
               {replysToggleValue ? (
                 <path d="M480-528 324-372q-11 11-28 11t-28-11q-11-11-11-28t11-28l184-184q12-12 28-12t28 12l184 184q11 11 11 28t-11 28q-11 11-28 11t-28-11L480-528Z" />
               ) : (

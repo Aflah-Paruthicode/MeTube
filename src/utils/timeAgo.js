@@ -21,4 +21,4 @@ export const timeAgo = (dateString) => {
   }
 
   return "just now";
-}
+};

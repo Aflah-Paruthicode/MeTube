@@ -18,27 +18,18 @@ const VideoCard = ({ info, from = false, fromSearch = false }) => {
     >
       <div className={`${from ? "flex max-md:flex-col" : fromSearch ? "flex gap-3 max-md:flex-col max-md:mb-4" : ""}`}>
         <img
-          className={`rounded-lg aspect-video object-cover z-10 ${
-            from ? "w-40 h-24 mx-2 max-md:w-full max-md:h-full " : ""
-          }`}
+          className={`rounded-lg aspect-video object-cover z-10 ${from ? "w-40 h-24 mx-2 max-md:w-full max-md:h-full " : ""}`}
           src={thumbnails.high.url}
           alt=""
-        /> 
+        />
         <ul className={fromSearch ? "w-full" : ""}>
           <li className={`font-semibold ${from ? "text-[14px]" : ""}`}>
             {from ? (
               title.slice(0, 50) + "..."
             ) : fromSearch ? (
-              <h1 className="flex justify-between font-normal text-[17px] whitespace-pre-wrap break-words break-all">
+              <h1 className="flex justify-between font-normal text-[17px] whitespace-pre-wrap wrap-break-word break-all">
                 {title.slice(0, 70) + "..."}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="16px"
-                  viewBox="0 -960 960 960"
-                  width="16px"
-                  fill="#000000"
-                  className="inline ml-1"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#000000" className="inline ml-1">
                   <path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z" />
                 </svg>
               </h1>
@@ -48,31 +39,24 @@ const VideoCard = ({ info, from = false, fromSearch = false }) => {
               title
             )}
           </li>
-          {!fromSearch ? (
+          {!fromSearch ? (   
             <>
+              <li className="text-gray-600 font-normal text-[14px]">{channelTitle}</li>
               <li className="text-gray-600 font-normal text-[14px]">
-                {channelTitle}
-              </li>
-              <li className="text-gray-600 font-normal text-[14px]">
-                {statistics?.viewCount &&
-                  formatViews(statistics?.viewCount) + " views"}
+                {statistics?.viewCount && formatViews(statistics?.viewCount) + " views"}
                 &nbsp; {timeAgo(publishedAt)}
               </li>
             </>
           ) : (
             <>
-              <li className="text-gray-600 font-normal text-[14px]">
-                 1k views
-                &nbsp; {timeAgo(publishedAt)}
-              </li>{" "}
+              <li className="text-gray-600 font-normal text-[14px]">1k views &nbsp; {timeAgo(publishedAt)}</li>{" "}
               <li className="text-gray-600 font-normal text-[14px] py-2 flex items-center gap-1">
-                <img className="w-7" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtRs_rWILOMx5-v3aXwJu7LWUhnPceiKvvDg&s" alt="" />{channelTitle}
+                <img className="w-7" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtRs_rWILOMx5-v3aXwJu7LWUhnPceiKvvDg&s" alt="" />
+                {channelTitle}
               </li>
             </>
           )}
-          {fromSearch && (
-            <p className="text-[14px] text-gray-600 whitespace-pre-wrap break-words break-all ">{snippet.description}</p>
-          )}
+          {fromSearch && <p className="text-[14px] text-gray-600 whitespace-pre-wrap wrap-break-word break-all ">{snippet.description}</p>}
         </ul>
       </div>
     </Link>

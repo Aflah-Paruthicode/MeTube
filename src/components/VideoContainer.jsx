@@ -19,11 +19,7 @@ const VideoContainer = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (
-        window.innerHeight + window.scrollY >=
-          document.body.offsetHeight - 100 &&
-        !loading
-      ) {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 && !loading) {
         getVideos(nextPageToken);
       }
     };
@@ -36,8 +32,8 @@ const VideoContainer = () => {
     setLoading(true);
     const data = await fetch(YT_VIDEOS_API(nextPageToken));
     const json = await data.json();
-    console.log('datas : ',json)
-    dispatch(addVideos(json.items)); 
+    console.log("datas : ", json);
+    dispatch(addVideos(json.items));
     setNextPageToken(json.nextPageToken);
     setTimeout(() => setLoading(false), 500);
   };
@@ -47,14 +43,7 @@ const VideoContainer = () => {
       {loading && (
         <div className="w-full text-center">
           {" "}
-          <OrbitProgress
-            variant="disc"
-            dense
-            color="#ebe6e7"
-            size="medium"
-            text=""
-            textColor=""
-          />
+          <OrbitProgress variant="disc" dense color="#ebe6e7" size="medium" text="" textColor="" />
         </div>
       )}
       {gVideos.map((video, ind) => (

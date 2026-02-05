@@ -1,8 +1,7 @@
 import { YT_VIDEOS_API } from "./constants";
 
-export const getVideos = async (nextPageToken = '') => {
-    
-    const data = await fetch(YT_VIDEOS_API(nextPageToken));
-    const json = await data.json();
-    return json;
-  };
+export const getVideos = async (nextPageToken = "") => {
+  const data = await fetch(YT_VIDEOS_API(nextPageToken));
+  const json = await data.json();
+  return json;
+};

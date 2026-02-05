@@ -9,9 +9,7 @@ const SearchResults = () => {
 
   if (SearchResults.length == 0) {
     return (
-      <div
-        className={`px-8 mt-[70px] z-[1] w-full ${menuToggle && "ml-[14rem] max-md:ml-0"}`}
-      >
+      <div className={`px-8 mt-[70px] z-1 w-full ${menuToggle && "ml-56 max-md:ml-0"}`}>
         <div className="w-full flex items-center justify-center flex-col h-[80vh]">
           <img src="/notFound.png" alt="" />
           <h1 className="text-2xl my-4">No results found</h1>
@@ -21,9 +19,7 @@ const SearchResults = () => {
     );
   }
   return (
-    <div
-      className={`px-8 max-md:px-3 mt-[70px] z-[1] w-full ${menuToggle && "ml-[14rem] max-md:ml-0"}`} 
-    >
+    <div className={`px-8 max-md:px-3 mt-[70px] z-1 w-full ${menuToggle && "ml-56 max-md:ml-0"}`}>
       <div className="mx-auto w-[65%] max-md:w-full">
         {SearchResults.map((video, ind) => (
           <VideoCard key={ind} info={video} fromSearch={true} />
