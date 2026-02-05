@@ -11,7 +11,7 @@ const Header = () => {
   const [searchText, setSearchText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [showSearchBox,setShowSearchBox] = useState(false);
+  const [showSearchBox, setShowSearchBox] = useState(false);
   const navigate = useNavigate();
   const togggleMenuHandler = () => {
     dispatch(toggleMenu());
@@ -48,12 +48,12 @@ const Header = () => {
     setSearchText(suggestion);
   };
 
-  const showSearch = () => { 
+  const showSearch = () => {
     setShowSearchBox(true);
-  }
+  };
 
   return (
-    <div className="grid grid-cols-12 max-md:grid-cols-8 w-full h-[70px] px-7 fixed top-0 bg-white z-[999999999]">
+    <div className="grid grid-cols-12 max-md:grid-cols-8 w-full h-[70px] px-7 fixed top-0 bg-white z-999999999">
       <div className="col-span-1 max-md:col-span-3 grid grid-cols-10">
         <svg
           onClick={togggleMenuHandler}
@@ -70,11 +70,21 @@ const Header = () => {
           <img src="/logo.png" alt="" />
         </div>
       </div>
-      {window.innerWidth < 768 && showSearchBox ?
-      <div className="absolute font-normal flex w-[95wh] px-5 py-3 items-center gap-2 z-[99999] bg-white">
-        <svg className="m-auto " onClick={() => setShowSearchBox(false)} xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#99a1af"><path d="m142-480 294 294q15 15 14.5 35T435-116q-15 15-35 15t-35-15L57-423q-12-12-18-27t-6-30q0-15 6-30t18-27l308-308q15-15 35.5-14.5T436-844q15 15 15 35t-15 35L142-480Z"/></svg>
+      {window.innerWidth < 768 && showSearchBox ? (
+        <div className="absolute font-normal flex w-[95wh] px-5 py-3 items-center gap-2 z-99999 bg-white">
+          <svg
+            className="m-auto "
+            onClick={() => setShowSearchBox(false)}
+            xmlns="http://www.w3.org/2000/svg"
+            height="30px"
+            viewBox="0 -960 960 960"
+            width="30px"
+            fill="#99a1af"
+          >
+            <path d="m142-480 294 294q15 15 14.5 35T435-116q-15 15-35 15t-35-15L57-423q-12-12-18-27t-6-30q0-15 6-30t18-27l308-308q15-15 35.5-14.5T436-844q15 15 15 35t-15 35L142-480Z" />
+          </svg>
           <input
-            className="border-gray-300 border border-[0.5px] py-[6px] w-full px-5  rounded-l-full border-r-0 outline-gray-300 outline-1"
+            className="border-gray-300 border-[0.5px] py-1.5 w-full px-5  rounded-l-full border-r-0 outline-gray-300 outline-1"
             type="search"
             placeholder="search..."
             onChange={(e) => {
@@ -96,69 +106,9 @@ const Header = () => {
                       setShowSuggestions(false);
                     }}
                     key={ind}
-                    className="flex w-full cursor-pointer text-[14px] hover:bg-gray-200 py-2 px-3 rounded-lg z-[9999999]"
+                    className="flex w-full cursor-pointer text-[14px] hover:bg-gray-200 py-2 px-3 rounded-lg z-9999999"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="23px"
-                      viewBox="0 -960 960 960"
-                      width="40px"
-                      fill="#00000"
-                    >
-                      <path d="M792-120.67 532.67-380q-30 25.33-69.64 39.67Q423.39-326 378.67-326q-108.44 0-183.56-75.17Q120-476.33 120-583.33t75.17-182.17q75.16-75.17 182.5-75.17 107.33 0 182.16 75.17 74.84 75.17 74.84 182.27 0 43.23-14 82.9-14 39.66-40.67 73l260 258.66-48 48Zm-414-272q79.17 0 134.58-55.83Q568-504.33 568-583.33q0-79-55.42-134.84Q457.17-774 378-774q-79.72 0-135.53 55.83-55.8 55.84-55.8 134.84t55.8 134.83q55.81 55.83 135.53 55.83Z" />
-                    </svg>
-                    {sugg}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          <button
-            onClick={() => {
-              handleSearchVideos(searchText);
-              setShowSuggestions(false);
-            }}
-            className="px-6 rounded-r-full my-auto border-gray-300 bg-gray-200 border border-[0.5px] cursor-pointer py-[7px]"
-          >
-            Search
-          </button>
-        
-
-      </div>
-       :<div className="col-span-9 max-md:col-span-3 m-auto font-normal flex items-center gap-3">
-        <div className="max-md:hidden">
-          <input
-            className="border-gray-300 border border-[0.5px] py-[6px] w-[500px] px-5  rounded-l-full border-r-0 outline-gray-300 outline-1"
-            type="search"
-            placeholder="search..."
-            onChange={(e) => {
-              setSearchText(e.target.value);
-              if (!showSuggestions) setShowSuggestions(true);
-            }}
-            value={searchText}
-            onFocus={() => setShowSuggestions(true)}
-            onBlur={() => setShowSuggestions(false)}
-          />
-          {showSuggestions && suggestions.length > 0 && (
-            <div className="absolute w-[500px] bg-white px-2 py-2 rounded-2xl shadow-2xl mt-2">
-              <ul className="font-semibold">
-                {suggestions.map((sugg, ind) => (
-                  <li
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      handleSearchVideos(sugg);
-                      setShowSuggestions(false);
-                    }}
-                    key={ind}
-                    className="flex w-full cursor-pointer text-[14px] hover:bg-gray-200 py-2 px-4 rounded-lg z-[9999999]"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="25px"
-                      viewBox="0 -960 960 960"
-                      width="40px"
-                      fill="#00000"
-                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" height="23px" viewBox="0 -960 960 960" width="40px" fill="#00000">
                       <path d="M792-120.67 532.67-380q-30 25.33-69.64 39.67Q423.39-326 378.67-326q-108.44 0-183.56-75.17Q120-476.33 120-583.33t75.17-182.17q75.16-75.17 182.5-75.17 107.33 0 182.16 75.17 74.84 75.17 74.84 182.27 0 43.23-14 82.9-14 39.66-40.67 73l260 258.66-48 48Zm-414-272q79.17 0 134.58-55.83Q568-504.33 568-583.33q0-79-55.42-134.84Q457.17-774 378-774q-79.72 0-135.53 55.83-55.8 55.84-55.8 134.84t55.8 134.83q55.81 55.83 135.53 55.83Z" />
                     </svg>
                     {sugg}
@@ -177,59 +127,76 @@ const Header = () => {
             Search
           </button>
         </div>
-        <button className="rounded-full mx-1  bg-gray-200 p-[6px] max-md:hidden">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="24px"
-            viewBox="0 -960 960 960"
-            width="24px"
-            fill="#00000"
-          >
-            <path d="M480-400q-50 0-85-35t-35-85v-240q0-50 35-85t85-35q50 0 85 35t35 85v240q0 50-35 85t-85 35Zm0-240Zm-40 520v-123q-104-14-172-93t-68-184h80q0 83 58.5 141.5T480-320q83 0 141.5-58.5T680-520h80q0 105-68 184t-172 93v123h-80Zm40-360q17 0 28.5-11.5T520-520v-240q0-17-11.5-28.5T480-800q-17 0-28.5 11.5T440-760v240q0 17 11.5 28.5T480-480Z" />
-          </svg>
-        </button>
-      </div> }
+      ) : (
+        <div className="col-span-9 max-md:col-span-3 m-auto font-normal flex items-center gap-3">
+          <div className="max-md:hidden">
+            <input
+              className="border-gray-300 border border-[0.5px] py-[6px] w-[500px] px-5  rounded-l-full border-r-0 outline-gray-300 outline-1"
+              type="search"
+              placeholder="search..."
+              onChange={(e) => {
+                setSearchText(e.target.value);
+                if (!showSuggestions) setShowSuggestions(true);
+              }}
+              value={searchText}
+              onFocus={() => setShowSuggestions(true)}
+              onBlur={() => setShowSuggestions(false)}
+            />
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="absolute w-[500px] bg-white px-2 py-2 rounded-2xl shadow-2xl mt-2">
+                <ul className="font-semibold">
+                  {suggestions.map((sugg, ind) => (
+                    <li
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        handleSearchVideos(sugg);
+                        setShowSuggestions(false);
+                      }}
+                      key={ind}
+                      className="flex w-full cursor-pointer text-[14px] hover:bg-gray-200 py-2 px-4 rounded-lg z-[9999999]"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="40px" fill="#00000">
+                        <path d="M792-120.67 532.67-380q-30 25.33-69.64 39.67Q423.39-326 378.67-326q-108.44 0-183.56-75.17Q120-476.33 120-583.33t75.17-182.17q75.16-75.17 182.5-75.17 107.33 0 182.16 75.17 74.84 75.17 74.84 182.27 0 43.23-14 82.9-14 39.66-40.67 73l260 258.66-48 48Zm-414-272q79.17 0 134.58-55.83Q568-504.33 568-583.33q0-79-55.42-134.84Q457.17-774 378-774q-79.72 0-135.53 55.83-55.8 55.84-55.8 134.84t55.8 134.83q55.81 55.83 135.53 55.83Z" />
+                      </svg>
+                      {sugg}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <button
+              onClick={() => {
+                handleSearchVideos(searchText);
+                setShowSuggestions(false);
+              }}
+              className="px-6 rounded-r-full my-auto border-gray-300 bg-gray-200 border border-[0.5px] cursor-pointer py-[7px]"
+            >
+              Search
+            </button>
+          </div>
+          <button className="rounded-full mx-1  bg-gray-200 p-[6px] max-md:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00000">
+              <path d="M480-400q-50 0-85-35t-35-85v-240q0-50 35-85t85-35q50 0 85 35t35 85v240q0 50-35 85t-85 35Zm0-240Zm-40 520v-123q-104-14-172-93t-68-184h80q0 83 58.5 141.5T480-320q83 0 141.5-58.5T680-520h80q0 105-68 184t-172 93v123h-80Zm40-360q17 0 28.5-11.5T520-520v-240q0-17-11.5-28.5T480-800q-17 0-28.5 11.5T440-760v240q0 17 11.5 28.5T480-480Z" />
+            </svg>
+          </button>
+        </div>
+      )}
       <div className=" col-span-2 m-auto flex gap-3 justify-end w-full">
         <p className="col-span-4 my-auto bg-gray-200 px-5 py-1 rounded-full flex font-semibold max-md:hidden">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="24px"
-            viewBox="0 -960 960 960"
-            width="24px"
-            fill="#00000"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00000">
             <path d="M480-120q-17 0-28.5-11.5T440-160v-280H160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520h280v-280q0-17 11.5-28.5T480-840q17 0 28.5 11.5T520-800v280h280q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440H520v280q0 17-11.5 28.5T480-120Z" />
           </svg>{" "}
           Create
         </p>
         {window.innerWidth < 768 && (
-          <svg
-            className="m-auto"
-            onClick={showSearch}
-            xmlns="http://www.w3.org/2000/svg"
-            height="25px"
-            viewBox="0 -960 960 960"
-            width="40px"
-            fill="#00000"
-          >
+          <svg className="m-auto" onClick={showSearch} xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="40px" fill="#00000">
             <path d="M792-120.67 532.67-380q-30 25.33-69.64 39.67Q423.39-326 378.67-326q-108.44 0-183.56-75.17Q120-476.33 120-583.33t75.17-182.17q75.16-75.17 182.5-75.17 107.33 0 182.16 75.17 74.84 75.17 74.84 182.27 0 43.23-14 82.9-14 39.66-40.67 73l260 258.66-48 48Zm-414-272q79.17 0 134.58-55.83Q568-504.33 568-583.33q0-79-55.42-134.84Q457.17-774 378-774q-79.72 0-135.53 55.83-55.8 55.84-55.8 134.84t55.8 134.83q55.81 55.83 135.53 55.83Z" />
           </svg>
         )}
-        <svg
-          className=" my-auto max-md:hidden"
-          xmlns="http://www.w3.org/2000/svg"
-          height="24px"
-          viewBox="0 -960 960 960"
-          width="24px"
-          fill="#00000"
-        >
+        <svg className=" my-auto max-md:hidden" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00000">
           <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z" />
         </svg>
-        <img
-          className=" w-10"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtRs_rWILOMx5-v3aXwJu7LWUhnPceiKvvDg&s"
-          alt=""
-        />
+        <img className=" w-10" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtRs_rWILOMx5-v3aXwJu7LWUhnPceiKvvDg&s" alt="" />
       </div>
     </div>
   );

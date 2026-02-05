@@ -11,15 +11,9 @@ const DescriptionBox = ({ desc, viewCount, uploadedOn }) => {
         <h1>{formatViews(viewCount)} views</h1>
         <h1>{timeAgo(uploadedOn)}</h1>
       </div>
-      <p
-        style={{ whiteSpace: "pre-wrap" }}
-        className="px-2 text-sm leading-6 w-full h-full whitespace-pre-wrap break-words break-all"
-      >
+      <p style={{ whiteSpace: "pre-wrap" }} className="px-2 text-sm leading-6 w-full h-full whitespace-pre-wrap wrap-break-word break-all">
         {desc.length > 100 && !readMore ? desc.slice(0, 100) : desc}{" "}
-        <button
-          className="font-bold cursor-pointer"
-          onClick={() => setReadMore(!readMore)}
-        >
+        <button className="font-bold cursor-pointer" onClick={() => setReadMore(!readMore)}>
           {!readMore ? "...more" : "Show less"}
         </button>
       </p>

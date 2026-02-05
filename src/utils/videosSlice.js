@@ -13,4 +13,4 @@ const videosSlice = createSlice({
 });
 
 export const { addVideos } = videosSlice.actions;
-export default videosSlice.reducer; 
+export default videosSlice.reducer;

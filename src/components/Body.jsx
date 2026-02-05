@@ -1,17 +1,17 @@
-import Header from './Header'
-import Sidebar from './Sidebar'
-import { Outlet } from 'react-router-dom'
+import Header from "./Header";
+import Sidebar from "./Sidebar";
+import { Outlet } from "react-router-dom";
 
-const Body = () => { 
+const Body = () => {
   return (
     <div>
       <Header />
-    <div className='flex'>
+      <div className="flex">
         <Sidebar />
         <Outlet />
+      </div>
     </div>
-    </div>
-  )
-}
+  );
+};
 
-export default Body
+export default Body;
